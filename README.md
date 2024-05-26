@@ -1,18 +1,16 @@
-# Po
+Powerful One records benchmark results for Elixir libraries.
 
-To start your Phoenix server:
+[Here're](https://perf.copycat.fun/ch) the records for [Ch.](https://github.com/plausible/ch)
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+Repeat, repeat, repeat. Keep a diary, get stronger.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Come up with a secret token and record some runs. Use that token for all subsequent requests.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+```sh
+curl \
+  --header "content-type: application/json" \
+  --header "authorization: Bearer your-secret-token" \
+  --request POST \
+  --data "[{},{},{}]" \
+  https://perf.copycat.fun/ch
+```
