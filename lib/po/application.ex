@@ -10,9 +10,7 @@ defmodule Po.Application do
     children = [
       PoWeb.Telemetry,
       Po.Repo,
-      {Ecto.Migrator,
-        repos: Application.fetch_env!(:po, :ecto_repos),
-        skip: skip_migrations?()},
+      {Ecto.Migrator, repos: Application.fetch_env!(:po, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:po, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Po.PubSub},
       # Start a worker by calling: Po.Worker.start_link(arg)
