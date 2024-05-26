@@ -1,0 +1,36 @@
+name: mix
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      MIX_ENV: test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: erlef/setup-elixir@v1
+        with:
+          elixir-version: 1.16
+          otp-version: 26
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            deps
+            _build
+          key: test-${{ github.head_ref || github.ref }}-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            test-${{ github.head_ref || github.ref }}-
+            test-refs/heads/master-
+
+      - run: mix deps.get --only=$MIX_ENV
+      - run: mix compile --warnings-as-errors
+      - run: mix format --check-formatted
+      - run: mix test
